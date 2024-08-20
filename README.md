@@ -18,6 +18,10 @@ instance with `Befunge.new('some code')` and run it with `run` method.
 Notice how `[[multiline strings]]` are used - *Lua my beloved* got us covered
 here too. When `run` stops, it returns interpreter's status.
 You also may advance algorithm execution step by step with `advance` method.
+
+See *examples* folder for more algorithms. You can find them (and more) on
+esoteric programming languages wiki - [Esolang](https://esolangs.org/wiki/Befunge).
+
 ```lua
 local Befunge = require 'befunge'
 
