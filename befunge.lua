@@ -137,24 +137,25 @@ end
 ---@param x integer
 ---@param y integer
 ---@param c string
----@return 'outofbounds'?
+---@return true?, 'outofbounds'?
 ---@nodiscard
 function Befunge.putchar(self, x, y, c)
   x, y = x + 1, y + 1 -- why Lua, why are arrays indexed from 1?
   if y < 1 or x < 1 or y > Befunge.ROWS or x > Befunge.COLS then
-    return 'outofbounds'
+    return nil, 'outofbounds'
   end
   self.grid[y][x] = c
+  return true
 end
 
 ---@param self Befunge
 ---@param x integer
 ---@param y integer
----@return string|'outofbounds'
+---@return string?, 'outofbounds'?
 function Befunge.getchar(self, x, y)
   x, y = x + 1, y + 1 -- ugh
   if y < 1 or x < 1 or y > Befunge.ROWS or x > Befunge.COLS then
-    return 'outofbounds'
+    return nil, 'outofbounds'
   end
   return self.grid[y][x]
 end
@@ -216,13 +217,17 @@ function Befunge.interpretchar(self, c)
     local y = self:pop()
     local x = self:pop()
     local v = self:pop()
-    local e = self:putchar(x, y, string.char(v))
-    if e then return e end
+    local succ, err = self:putchar(x, y, string.char(v))
+    if not succ then ---@cast err -nil
+      return err
+    end
   elseif c == 'g' then
     local y = self:pop()
     local x = self:pop()
-    local ch = self:getchar(x, y)
-    if ch == 'outofbounds' then return ch end
+    local ch, err = self:getchar(x, y)
+    if not ch then ---@cast err -nil
+      return err
+    end
     self:push(string.byte(ch))
   elseif c == '&' then
     local i = io.read('n')
