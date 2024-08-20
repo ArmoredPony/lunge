@@ -49,6 +49,7 @@ local quine = Befunge.new [[
 ]]
 local quinestatus = quine:run()
 
-for _, s in ipairs{hwstatus, dnastatus, quinestatus} do print(s) end
--- prints `finished` three times - as it should
+for _, s in ipairs{hwstatus, dnastatus, quinestatus} do
+  assert(s == 'finished')
+end
 ```
