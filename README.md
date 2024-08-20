@@ -23,33 +23,36 @@ local Befunge = require 'befunge'
 
 -- "Hello world"
 local hw = Befunge.new [[
-  >              v
-  v"Hello World!"<
-  >:v
-  ^,_@
+>              v
+v"Hello World!"<
+>:v
+^,_@
 ]]
 local hwstatus = hw:run()
+print()
 
 -- DNA-code
 local dna = Befunge.new [[
-  7^DN>vA
-  v_#v? v
-  7^<""""
-  3  ACGT
-  90!""""
-  4*:>>>v
-  +8^-1,<
-  > ,+,@)
+7^DN>vA
+v_#v? v
+7^<""""
+3  ACGT
+90!""""
+4*:>>>v
++8^-1,<
+> ,+,@)
 ]]
 local dnastatus = dna:run()
 
 -- Quine
 local quine = Befunge.new [[
-  01->1# +# :# 0# g# ,# :# 5# 8# *# 4# +# -# _@
+01->1# +# :# 0# g# ,# :# 5# 8# *# 4# +# -# _@
 ]]
 local quinestatus = quine:run()
+print()
 
 for _, s in ipairs{hwstatus, dnastatus, quinestatus} do
   assert(s == 'finished')
 end
+
 ```
