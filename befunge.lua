@@ -34,7 +34,12 @@ local binops <const> = {
   ['`'] = function (a, b) return b > a and 1 or 0 end
 }
 
----@alias Status 'going'|'finished'|'outofbounds'|'badchar'|'notsupported'
+---@alias Status
+---| 'going'
+---| 'finished'
+---| 'outofbounds'
+---| 'badchar'
+---| 'badinput'
 
 -- type `Module` is declared within type `Befunge`, may use this for enums/ADTs
 ---@class Befunge.Module
@@ -43,7 +48,7 @@ local Befunge = {
   COLS = 80
 }
 
--- type is defined independently of data, which is great. the syntax is not
+-- type is defined independently of data, which is great. the syntax is not.
 -- also had to declare fields as a part of public contract. fields are a good
 -- candidate for type inference. only public API should be exposed in contracts
 ---@class Befunge: Befunge.Module
@@ -135,7 +140,7 @@ end
 ---@return 'outofbounds'?
 ---@nodiscard
 function Befunge.putchar(self, x, y, c)
-  x, y = x + 1, y + 1 -- why Lua, why arrays are indexing from 1?
+  x, y = x + 1, y + 1 -- why Lua, why are arrays indexed from 1?
   if y < 1 or x < 1 or y > Befunge.ROWS or x > Befunge.COLS then
     return 'outofbounds'
   end
@@ -219,8 +224,14 @@ function Befunge.interpretchar(self, c)
     local ch = self:getchar(x, y)
     if ch == 'outofbounds' then return ch end
     self:push(string.byte(ch))
-  elseif c == '&' or c == '~' then
-    return 'notsupported'
+  elseif c == '&' then
+    local i = io.read('n')
+    if not i then return 'badinput' end
+    self:push(i)
+  elseif c == '~' then
+    local ch = io.read(1)
+    if not ch then return 'badinput' end
+    self:push(string.byte(ch))
   else
     return 'badchar'
   end
