@@ -202,9 +202,9 @@ function Befunge.interpretchar(self, c)
   elseif c == '$' then
     self:pop()
   elseif c == '.' then
-    print(tonumber(self:pop()))
+    io.write(tonumber(self:pop()))
   elseif c == ',' then
-    print(string.char(self:pop()))
+    io.write(string.char(self:pop()))
   elseif c == '#' then
     self:move()
   elseif c == 'p' then

@@ -54,5 +54,4 @@ print()
 for _, s in ipairs{hwstatus, dnastatus, quinestatus} do
   assert(s == 'finished')
 end
-
 ```
