@@ -13,9 +13,9 @@ This code example features some comments about Lua and type annotations for
 the aformentioned language server - just ignore those.
 
 # How
-Import `Befunge` module with `require 'befunge'`,reate a new interpreter
+Import `Befunge` module with `require 'befunge'`, create a new interpreter
 instance with `Befunge.new('some code')` and run it with `run` method.
-Notice how `[[multiline strings]]` are used - *Lua my beloved* got us covered
+Notice how `[[multiline strings]]` are used - Lua ~~my beloved~~ got us covered
 here too. When `run` stops, it returns interpreter's status.
 You also may advance algorithm execution step by step with `advance` method.
 
